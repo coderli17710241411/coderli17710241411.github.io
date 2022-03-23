@@ -1,44 +1,475 @@
+
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="zh-CN">
+
 <head>
     <meta charset="utf-8">
-    <title>我的哔哩哔哩</title>
-    <link href="https://www.adalab.cn/admission.css" rel="stylesheet">
-    <link href="style.css" rel="stylesheet">
+    <title>Adalab挑战赛作品集</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@6.5.8/swiper-bundle.min.css"
+        integrity="sha256-QB1cUj8NLdGT32WwxvMRX5Sox8MFEp34VwByywXM/4w=" crossorigin="anonymous">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
 
+        .title-box a,
+        .title-box a:visited {
+            color: white;
+        }
+
+        .title-box a:hover {
+            color: lightgray;
+        }
+
+        .introcontainer {
+            width: 100%;
+            height: 100%;
+            margin: auto;
+        }
+
+        .swiper-container {
+            width: 100%;
+            height: 100vh;
+            background: rgb(10, 10, 11);
+        }
+
+        .swiper-slide {
+            width: 500px;
+            height: 100%;
+            display: flex;
+            margin: auto;
+            align-items: center;
+            justify-content: center;
+            background: rgb(10, 10, 11);
+        }
+
+        .cards {
+            width: 100%;
+            height: auto;
+            display: flex;
+            position: relative;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card img {
+            object-fit: cover;
+            width: 600px;
+            border-radius: 5px;
+            max-width: 100%;
+            height: 50vh;
+            padding: 0;
+            margin: 0;
+        }
+
+        .card.two img {
+            filter: sepia(100%) hue-rotate(190deg) saturate(300%);
+        }
+
+        .card.four img {
+            filter: invert(4%) sepia(75%) saturate(500%) hue-rotate(356deg) brightness(70%) contrast(103%);
+        }
+
+        .text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            bottom: 0px;
+            max-width: 100%;
+            width: 500px;
+
+        }
+
+        .title-box {
+            display: flex;
+            text-align: left;
+            max-width: 100%;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            right: 0 !important;
+            bottom: 50px;
+            justify-content: center;
+            color: #fff;
+            opacity: 0;
+            z-index: 15;
+        }
+
+        .title-box h1 {
+            display: block;
+            font-family: "Futura";
+            font-weight: 700;
+            line-height: normal;
+            max-width: 100%;
+            font-size: 3vmin;
+        }
+
+        .title-box p {
+            font-family: "HelveticaNow";
+            font-size: 2vmin;
+            padding-top: 0;
+            margin: 0;
+            padding-left: 1%;
+            max-width: 100%;
+        }
+
+        .card .title-box .seperator {
+            height: 1px;
+            width: 10%;
+            background: white;
+            position: absolute;
+            content: "";
+            left: -15%;
+            top: 50%;
+        }
+
+        .swiper-slide .title-box {
+            transform: translateX(-50%);
+            transition: all .7s ease .3s;
+        }
+
+        .swiper-slide-active .title-box {
+            transform: translateX(0%);
+            opacity: 1;
+            transition: all .7s ease;
+        }
+
+        .swiper-scrollbar {
+            background: white;
+        }
+
+        .swiper-slide .card img {
+            transition: filter .7s ease;
+            filter: grayscale(100%);
+        }
+
+        .swiper-slide-active .card img {
+            filter: grayscale(0%) brightness(60%);
+        }
+
+        .swiper-pagination-bullet-active {
+            background: white !important;
+            width: 25px !important;
+            height: 5px !important;
+            border-radius: 0 !important;
+        }
+
+        .swiper-pagination-bullet {
+            background: whitesmoke !important;
+            width: 25px !important;
+            height: 5px !important;
+            border-radius: 0 !important;
+        }
+
+        .swiper-arrows {
+            width: 100%;
+            height: 80px;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            bottom: 50%;
+        }
+
+        .swiper-button-prev,
+        .swiper-button-next {
+            width: 80px !important;
+            height: 80px;
+            background-image: none !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            top: 0;
+            bottom: 0;
+            margin: 0;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .swiper-button-prev {
+            left: 0px !important;
+            right: auto !important;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+
+        .swiper-button-next {
+            right: 0px !important;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .swiper-button-prev span,
+        .swiper-button-next span {
+            width: 10px;
+            height: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+            position: absolute;
+            border: solid 2px #666;
+            border-left: 0;
+            border-bottom: 0;
+            transition: all 0.1s ease;
+        }
+
+        .swiper-button-prev span {
+            transform: rotate(-135deg);
+            left: 49%;
+        }
+
+        .swiper-button-next span {
+            transform: rotate(45deg);
+            right: 49%;
+        }
+
+        .swiper-button-prev:hover span,
+        .swiper-button-next:hover span {
+            width: 5px;
+            height: 5px;
+        }
+
+        .swiper-button-prev:after,
+        .swiper-button-next:after {
+            width: 0px;
+            height: inherit;
+            content: "";
+            position: absolute;
+            border-radius: 5px;
+            background-color: white;
+            transition: all 0.4s ease-in-out;
+            z-index: -1;
+            opacity: 0.8;
+        }
+
+        .swiper-button-prev:after {
+            right: 0;
+        }
+
+        .swiper-button-next:after {
+            left: 0;
+        }
+
+        .swiper-button-prev:hover:after,
+        .swiper-button-next:hover:after {
+            width: inherit;
+        }
+
+        .swiper-button-disabled {
+            opacity: 1 !important;
+        }
+
+        .swiper-button-disabled.swiper-button-prev span,
+        .swiper-button-disabled.swiper-button-next span {
+            opacity: 0.2;
+        }
+
+        @media screen and (max-width: 512px) {
+
+            .swiper-button-prev,
+            .swiper-button-next {
+                width: 60px;
+                height: 60px;
+                bottom: 0;
+            }
+
+            .swiper-arrows {
+                height: 60px;
+            }
+
+            .swiper-button-prev {
+                right: 60px;
+            }
+
+            .swiper-button-prev span {
+                left: 45%;
+            }
+
+            .swiper-button-next span {
+                right: 45%;
+            }
+        }
+
+        .swiper-button-next::after,
+        .swiper-container-rtl .swiper-button-prev::after {
+            content: "attr" !important;
+        }
+
+        .swiper-button-prev::after,
+        .swiper-container-rtl .swiper-button-prev::after {
+            content: "attr" !important;
+        }
+    </style>
 </head>
-        <script src="thumbnail.js"></script>
+
 <body>
+    <div class="introcontainer">
+        <!-- Slider main container -->
+        <div class="swiper-container">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+                <!-- Slides -->
+                <div class="swiper-slide">
+                    <div class="cards">
+                        <div class="card one">
+                            <img src="https://z3.ax1x.com/2021/07/05/R5XjEj.jpg" alt="iLYCYN" />
+                            <div class="text">
+                            </div>
+                            <div class="title-box">
+                                <a href="/ilycyn.github.io/">
+                                    <h1>iLYCYN</h1>
+                                </a>
+                                <p>爱是什么？可能每个人都有不同的答案。</p>
+                                <div class="seperator"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-     <header><img src="https://www.adalab.cn/images/adalab.png" alt="" height="100px" class="small" id="smart-image"></header>
-    <main>
-        <aside>
-            <ul>
-                <li><a href="https://coderli17710241411.github.io">首页</a></li>
-                <li><a href="https://coderli17710241411.github.io/bilibili.html">现在这个页面</a></li>
-            </ul>
-        </aside>
-        <article>
+                <div class="swiper-slide">
+                    <div class="cards">
+                        <div class="card two">
+                            <img src="/40400.github.io/ziyuan/ZZ.png" alt="航海王" />
+                            <div class="text">
+                            </div>
+                            <div class="title-box">
+                                <a href="/40400.github.io/">
+                                    <h1>航海王</h1>
+                                </a>
+                                <p>《航海王》是日本漫画家尾田荣一郎作画的少年漫画作品，于1997年7月22日在集英社《周刊少年Jump》开始连载。</p>
+                                <div class="seperator"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-            <h1>Hello Adalab</h1>
-            <h2>adalab二级标题</h2>
-            <h3>adalab三级标题</h3>
-            <p>This is the first page I made at Adalab.</p>
-            这是为<a href="https://www.adalab.cn"><img src="https://www.adalab.cn/images/adalab.png"> </a>挑战赛制作的网站。
+                <div class="swiper-slide">
+                    <div class="cards">
+                        <div class="card three">
+                            <img src="https://z3.ax1x.com/2021/06/21/RE1MDK.jpg" alt="《彩虹六号：围攻》" />
+                            <div class="text">
+                            </div>
+                            <div class="title-box">
+                                <a href="/wenbaolin.github.io/">
+                                    <h1>《彩虹六号：围攻》</h1>
+                                </a>
+                                <p>以第一人称设计游戏《彩虹六号》为主题开发的网站，加入了Disqus评论系统，还精心设计了一个独属于自己的签名图片。</p>
+                                <div class="seperator"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="swiper-slide">
+                    <div class="cards">
+                        <div class="card four">
+                            <img src="https://x0.ifengimg.com/ucms/2021_24/8100536FA47D94A18F196FBC720B4ED5A2AE1E6F_size775_w1000_h660.png"
+                                alt="Zyr的个人网站" />
+                            <div class="text">
+                            </div>
+                            <div class="title-box">
+                                <a href="/zhaoyurun.github.io/">
+                                    <h1>Zyr的个人网站</h1>
+                                </a>
+                                <p>恰逢神舟十二号发射成功，有感而发，制作了这个网站。用Waline实现了评论功能，还嵌入了一个百度搜索。</p>
+                                <div class="seperator"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-            <h1>算卦视频</h1>
-            <iframe src="//player.bilibili.com/player.html?aid=894643041&bvid=BV1cP4y1375E&cid=547810157&page=1"
-                scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
-            <a href="https://coderli17710241411.github.io/">index页面</a>
-        </article>
-    </main>
-    <footer>
-        by <a href="https://www.zhihu.com/people/0000-55-49-60" target="_blank">CGTN</a> for <a
-            href="https://www.adalab.cn" target="_blank">Adalab</a>
+                <div class="swiper-slide">
+                    <div class="cards">
+                        <div class="card one">
+                            <img src="/cybzzz.github.io/Rick%20and%20Morty.jpg" alt="瑞克和莫蒂" />
+                            <div class="text">
+                            </div>
+                            <div class="title-box">
+                                <a href="/cybzzz.github.io/">
+                                    <h1>瑞克和莫蒂</h1>
+                                </a>
+                                <p>Rick and Morty是由Justin Roiland和 Dan Harmon为卡通网络深夜节目Adult Swim创作的美国成人动画科幻情景喜剧。</p>
+                                <div class="seperator"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    </footer>
+                <div class="swiper-slide">
+                    <div class="cards">
+                        <div class="card one">
+                            <img src="https://i.niupic.com/images/2022/03/02/9VBR.jpg" alt="亚伦·斯沃茨" />
+                            <div class="text">
+                            </div>
+                            <div class="title-box">
+                                <a href="/dddaniel1.github.io/">
+                                    <h1>亚伦·斯沃茨</h1>
+                                </a>
+                                <p>亚伦·斯沃茨是年少成名的计算机天才，著名社交网站Reddit联合创始人，web py的设计者，RSS规格的作者。</p>
+                                <div class="seperator"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    
+                <div class="swiper-slide">
+                    <div class="cards">
+                        <div class="card one">
+                            <img src="/PrawKanit.github.io/images/p3.png" alt="光是遇见，就很美好" />
+                            <div class="text">
+                            </div>
+                            <div class="title-box">
+                                <a href="/PrawKanit.github.io/">
+                                    <h1>光是遇见，就很美好</h1>
+                                </a>
+                                <p>在一座失落的云中王国，有一群光之子民居住于此，光明与黑暗在王国中和谐共存着。然而渐渐地，光与暗的平衡发生了倾斜，王国也因此没落。</p>
+                                <div class="seperator"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- If we need pagination -->
+            <div class="swiper-pagination"></div>
+
+            <!-- If we need navigation buttons -->
+            <div class="swiper-arrows">
+                <div class="swiper-button-prev"><span></span></div>
+                <div class="swiper-button-next"><span></span></div>
+            </div>
+
+            <!-- If we need scrollbar -->
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const swiper = new Swiper('.swiper-container', {
+                speed: 500,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                centeredSlides: true,
+                paginationClickable: true,
+                watchSlidesProgress: true,
+                loop: true,
+                slidesPerView: 2,
+                spaceBetween: 30,
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            })
+        })
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@6.5.8/swiper-bundle.min.js"
+        integrity="sha256-5em7JK58BvjAPoXjN+YEQu1aV9K3qlSCs/1OZBuq4zU=" crossorigin="anonymous"></script>
 </body>
+
 </html>
